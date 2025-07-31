@@ -4,36 +4,41 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.multilayoutuiandroidapp.databinding.FragmentNotificationsBinding;
 
-
-import com.example.multilayoutuiandroidapp.databinding.FragmentNotificationsBinding;
+import com.example.multilayoutuiandroidapp.R;
 
 public class DashboardFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel notificationsViewModel =
+        DashboardViewModel dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        final TextView textView = binding.notificationsText;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        TextView dashboardTitle = root.findViewById(R.id.dashboardTitle);
+        TextView notificationsText = root.findViewById(R.id.notificationsText);
+        TextView accountStatusText = root.findViewById(R.id.accountStatusText);
+        EditText searchBar = root.findViewById(R.id.searchBar);
+        Button btnViewProfile = root.findViewById(R.id.btnViewProfile);
+        Button btnSettings = root.findViewById(R.id.btnSettings);
+
+        // Set click listeners for buttons
+        btnViewProfile.setOnClickListener(v -> 
+            Toast.makeText(requireContext(), "View Profile clicked", Toast.LENGTH_SHORT).show()
+        );
+
+        btnSettings.setOnClickListener(v -> 
+            Toast.makeText(requireContext(), "Settings clicked", Toast.LENGTH_SHORT).show()
+        );
+
         return root;
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-}

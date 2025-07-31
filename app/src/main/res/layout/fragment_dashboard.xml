@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/background"
+    tools:context=".ui.Dashboard.DashboardFragment">
+
+    <TextView
+        android:id="@+id/dashboardTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Dashboard"
+        android:textSize="32sp"
+        android:textColor="#000"
+        android:layout_marginBottom="24dp" />
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dashboardTitle"
+        android:layout_marginTop="20dp"
+        android:hint="Search..."
+        android:textColor="#000"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:id="@+id/notificationsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchBar"
+        android:layout_marginTop="16dp"
+        android:text="Notifications"
+        android:textSize="24sp"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/accountStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notificationsText"
+        android:layout_marginTop="16dp"
+        android:text="Account Status"
+        android:textSize="24sp"
+        android:textColor="#000" />
+
+    <Button
+        android:id="@+id/btnViewProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accountStatusText"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="View Profile" />
+
+    <Button
+        android:id="@+id/btnSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accountStatusText"
+        android:layout_toEndOf="@id/btnViewProfile"
+        android:layout_marginTop="32dp"
+        android:text="Settings" />
+
+</RelativeLayout>
