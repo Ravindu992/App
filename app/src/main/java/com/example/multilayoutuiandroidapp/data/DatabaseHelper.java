@@ -10,19 +10,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "StudentDB";
     private static final int DATABASE_VERSION = 1;
     
-    // Table name and columns
+    // Table name and columns for students
     public static final String TABLE_STUDENTS = "students";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PHONE = "phone";
 
-    // Create table SQL query
+    // Table name and columns for users
+    public static final String TABLE_USERS = "users";
+    public static final String COLUMN_USER_ID = "id";
+    public static final String COLUMN_USERNAME = "username";
+    public static final String COLUMN_PASSWORD = "password";
+
+    // Create table SQL queries
     private static final String CREATE_TABLE_STUDENTS = "CREATE TABLE " + TABLE_STUDENTS + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_NAME + " TEXT,"
             + COLUMN_EMAIL + " TEXT,"
             + COLUMN_PHONE + " TEXT"
+            + ")";
+
+    private static final String CREATE_TABLE_USERS = "CREATE TABLE " + TABLE_USERS + "("
+            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_USERNAME + " TEXT UNIQUE,"
+            + COLUMN_PASSWORD + " TEXT"
             + ")";
 
     public DatabaseHelper(Context context) {
@@ -32,6 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_STUDENTS);
+        db.execSQL(CREATE_TABLE_USERS);
     }
 
     @Override
@@ -70,5 +83,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteStudent(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_STUDENTS, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    // User Authentication Methods
+    
+    // Register new user
+    public long registerUser(String username, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USERNAME, username);
+        values.put(COLUMN_PASSWORD, password);
+        return db.insert(TABLE_USERS, null, values);
+    }
+
+    // Check login credentials
+    public boolean checkUser(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_ID};
+        String selection = COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
+        String[] selectionArgs = {username, password};
+        
+        Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        
+        return count > 0;
     }
 }

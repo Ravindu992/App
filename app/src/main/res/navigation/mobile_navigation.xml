@@ -30,6 +30,3 @@
         tools:layout="@layout/fragment_dashboard" />
 
 </navigation>
-
-
-</navigation>
