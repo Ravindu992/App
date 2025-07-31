@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MultiLayout UI Android app</string>
+    <string name="title_home">Home</string>
+    <string name="title_frame">Frame Layout</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_Frame">Frame Layout</string>
+</resources>
